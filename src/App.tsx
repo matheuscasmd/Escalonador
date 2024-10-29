@@ -1,14 +1,16 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect, useState } from 'react'
 import { Card } from './components/Card'
-import { CircleHelp, Cpu, Home, PanelsTopLeft, RotateCcw, Settings } from 'lucide-react'
+import { CircleHelp, Home, PanelsTopLeft, RotateCcw, Settings } from 'lucide-react'
+import { Process,generatePID } from './components/Process';
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [processos,setProcessos] = useState<number>();
+  const [cards,setCards] = useState<typeof Card[]>([]);
+
 
   return (
-    <main className='w-screen h-screen bg-slate-600'>
+    <main className='font-light w-screen h-screen bg-slate-600'>
       <header className='flex flex-row h-20 bg-white gap-8 justify-between items-center'>
         <div className='flex flex-row gap-2 ml-4'>
           <a href="#"><Home className='size-[36px]'/></a>  
@@ -23,7 +25,17 @@ function App() {
         </nav>  
       </header>
       <body className='flex w-full mt-10 justify-center'>
-        <Card></Card>
+        <div className='flex flex-col bg-green-500 text-center items-center min-w-full min-h-fit'>
+          <h1>Gerenciador</h1>
+          <input type="text" onChange={(e) => setProcessos(Number(e.target.value))} className='max-w-8'/>
+          <div className='flex justify-evenly'>
+            <Card title='FIFO' background='white'></Card>
+            <Card title='Round Robin' background='white'></Card>
+            <Card title='EDF' background='white'></Card>
+            <Card title='SJF' background='white'></Card>
+          </div>
+        </div>
+        
       </body>
     </main>
   )
